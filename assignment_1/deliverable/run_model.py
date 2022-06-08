@@ -57,13 +57,43 @@ if __name__ == '__main__':
     # EDITABLE SECTION OF THE SCRIPT: if you need to edit the script, do it here
     ############################################################################
 
+    # >>> LINEAR REGRESSION
+
+    linear_regresion_path = './linear_regression.pickle'
+    linear_regresion = load_model(linear_regresion_path)
+
+    n = len(x)
+    x3 = np.empty((0, n))
+    x4 = np.empty((0, n))
+    for _x1, _x2 in x:
+        x3 = np.append(x3, np.cos(_x2))
+        x4 = np.append(x4, np.square(_x1))
+    X = np.copy(x)
+    X = np.insert(X, 2, x3, axis=1)
+    X = np.insert(X, 3, x4, axis=1)
+
+    y_pred = linear_regresion.predict(X)
+    mse = evaluate_predictions(y_pred, y)
+    print('MSE for Linear Regression: {}'.format(mse))
+
+    # <<< LINEAR REGRESSION
+
+    # >>> SUPPORT VECTOR REGRESSOR
+
+    nonlinear_regresion_path = './nonlinear_regression.pickle'
+    nonlinear_regresion = load_model(nonlinear_regresion_path)
+    y_pred = nonlinear_regresion.predict(x)
+    mse = evaluate_predictions(y_pred, y)
+    print('MSE for Non-Linear Regression: {}'.format(mse))
+
+    # <<< SUPPORT VECTOR REGRESSOR
+
     # Load the trained model
     baseline_model_path = './baseline_model.pickle'
     baseline_model = load_model(baseline_model_path)
 
     # Predict on the given samples
     y_pred = baseline_model.predict(x)
-
 
     ############################################################################
     # STOP EDITABLE SECTION: do not modify anything below this point.
