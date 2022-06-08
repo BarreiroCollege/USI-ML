@@ -22,7 +22,7 @@ class GridCombination:
         self.neurons = neurons
 
 
-def define_model(learning_rate=0.003, neurons=8, input_shape=(32, 32, NUM_CLASSES)):
+def define_model(learning_rate=0.003, neurons=8, input_shape=(32, 32, 3)):
     model = Sequential()
     model.add(Conv2D(filters=8, kernel_size=(5, 5), strides=(1, 1), activation='relu', input_shape=input_shape))
     model.add(MaxPooling2D(pool_size=(2, 2)))

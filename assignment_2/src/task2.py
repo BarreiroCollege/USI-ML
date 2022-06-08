@@ -10,7 +10,7 @@ from src.settings import NUM_CLASSES
 from src.utils import load_cifar10, save_keras_model
 
 
-def define_model(input_shape=(32, 32, NUM_CLASSES)):
+def define_model(input_shape=(32, 32, 3)):
     model = Sequential()
     model.add(Flatten(input_shape=input_shape))
     model.add(Dense(units=512, activation='relu'))

@@ -21,7 +21,6 @@ if __name__ == '__main__':
 
     # Predict on the given samples
     y_pred_task1 = model_task1.predict(x_test)
-    print(y_pred_task1[0])
 
     matrix = confusion_matrix(y_test.argmax(axis=1), y_pred_task1.argmax(axis=1))
     plot_confusion_matrix(matrix, labels)
