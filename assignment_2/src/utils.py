@@ -1,15 +1,15 @@
 import os
-import urllib.request as http
-from zipfile import ZipFile
 
-import tensorflow as tf
 import numpy as np
+import tensorflow as tf
 from PIL import Image
-from tensorflow.keras.datasets import cifar10
-from tensorflow.keras.models import save_model, load_model
+from keras.datasets import cifar10
+from keras.models import save_model, load_model
+
+from src.settings import NUM_CLASSES
 
 
-def load_cifar10(num_classes=3):
+def load_cifar10(num_classes=NUM_CLASSES):
     """
     Downloads CIFAR-10 dataset, which already contains a training and test set,
     and return the first `num_classes` classes.
@@ -34,6 +34,22 @@ def load_cifar10(num_classes=3):
     return (x_train, y_train), (x_test, y_test)
 
 
+def load_cifar10_labels(num_classes=NUM_CLASSES):
+    labels = [
+        'airplane',
+        'automobile',
+        'bird',
+        'cat',
+        'deer',
+        'dog',
+        'frog',
+        'horse',
+        'ship',
+        'truck'
+    ]
+    return labels[:num_classes]
+
+
 def make_dataset(imgs, labels, label_map, img_size, rgb=True, keepdim=True, shuffle=True):
     x = []
     y = []
@@ -46,11 +62,11 @@ def make_dataset(imgs, labels, label_map, img_size, rgb=True, keepdim=True, shuf
         x_i = np.asarray(x_i)
         if not keepdim:
             x_i = x_i.reshape(-1)
-        
+
         # encode label
         y_i = np.zeros(n_classes)
         y_i[label_map[l]] = 1.
-        
+
         x.append(x_i)
         y.append(y_i)
     x, y = np.array(x).astype('float32'), np.array(y)
